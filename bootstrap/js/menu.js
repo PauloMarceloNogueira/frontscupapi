@@ -1,4 +1,5 @@
 function Menu(){
+	
 	this.construct.apply(this,arguments);
 }
 

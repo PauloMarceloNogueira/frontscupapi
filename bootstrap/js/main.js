@@ -10,7 +10,9 @@ $(document).ready(function(){
 	});
 
 
+
 	function createMenu(){
+		console.log('lala');
 		$.ajax({
 			url: "http://localhost:8080/modules",
 			dataType: "application/json",
@@ -26,22 +28,50 @@ $(document).ready(function(){
 
 	function addMenuClick(){
 		$('ul.nav li a').on('click',function(){
-			console.log('clicou')
+			closeConfig()
 			$(".conteudo").html("");
 			var action = $(this).data('action');
 
 			var monitoramento = $(this).data('monitoramento');
 
-			$.ajax({
-			    url: "http://localhost:8080/"+action+'/'+monitoramento,
-			    dataType: "application/json",
-			    contentType: "text/plain",
-			    complete: function(results){
-			    	var response = JSON.parse(results.responseText)
-			        tabela = new Table(response);
-			        document.querySelector('.conteudo').appendChild(tabela.table);
-			    }
-			});
+			if(action === 'config'){
+				openConfig()
+				$('#config').submit(function(data){
+					var publickey = $('#addPublickey').val();
+					var privatekey = $('#addPrivatekey').val();
+					sendConfig(publickey, privatekey);
+				})
+			}else{
+				$.ajax({
+				    url: "http://localhost:8080/"+action+'/'+monitoramento,
+				    dataType: "application/json",
+				    contentType: "text/plain",
+				    complete: function(results){
+				    	var response = JSON.parse(results.responseText)
+				        tabela = new Table(response);
+				        document.querySelector('.conteudo').appendChild(tabela.table);
+				    }
+				});
+			}	
+		})
+	}
+
+	function openConfig(){
+		$('.config').removeClass('hiden');
+	}
+
+	function closeConfig(){
+		$('.config').addClass('hiden');
+	}
+
+	function sendConfig(publickey, privatekey){
+		$.ajax({
+			url: "http://localhost:8080/config/"+publickey+'/'+privatekey,
+			dataType: "application/json",
+			contentType: "text/plain",
+			complete: function(results){
+				closeConfig()
+			}
 		})
 	}
 
