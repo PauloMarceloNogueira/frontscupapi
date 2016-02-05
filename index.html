@@ -13,27 +13,23 @@
 
   </head>
   <body>
-    <div class="container">
-    <!-- <ul class="nav nav-pills">
-      <li class="active">
-        <a href="#" data-action="monitorings" data-monitoramento="" > Monitoramentos </a>
-      </li>
-      <li><a href="#" data-action="searches"  data-monitoramento="" > Buscas </a></li>
-      <li><a href="#" data-action="mentions" data-monitoramento="" > Itens </a></li>
-    </ul> -->
-    </div>
+    <div class="container"></div>
+
     <div class="monitoramento hiden" >
       <input type="text" id="changeMonitoramento" />
     </div>
-    <div class="config hiden">
+
+    <div class="conteudo">
+    
+    <div class="config">
       <form id="config" action="#">  
-        <input type="text" id="addPublickey" />
-        <input type="text" id="addPrivatekey" />
-        <input type="submit" value="Go">
+        <input type="text" id="addPublickey" placeholder="Enter Publickey" />
+        <input type="text" id="addPrivatekey" placeholder="Enter PrivateKey" />
+        <input type="submit" value="Add" class="btn"><div class="statusConfig"></div>
       </form>
     </div>
-    <div class="conteudo">
-      <div class="loading"></div>
+    
+    <div class="result"></div>
     </div>
     
   </body>

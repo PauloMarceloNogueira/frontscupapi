@@ -12,6 +12,25 @@
   *zoom: 1;
 }
 
+.config{
+  width: 50px;
+}
+
+.conteudo{
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top:5%;
+}
+
+#config .btn{
+  float: left;
+}
+
+.statusConfig{
+  display: block;
+  margin-left: 70px;
+}
+
 .hiden {
   display: none;
 }

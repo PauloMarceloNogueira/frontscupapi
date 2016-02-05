@@ -28,20 +28,13 @@ $(document).ready(function(){
 
 	function addMenuClick(){
 		$('ul.nav li a').on('click',function(){
-			closeConfig()
-			$(".conteudo").html("");
+			//closeConfig()
+			$(".result").html("");
+			$(".statusConfig").addClass('hiden');
 			var action = $(this).data('action');
 
 			var monitoramento = $(this).data('monitoramento');
 
-			if(action === 'config'){
-				openConfig()
-				$('#config').submit(function(data){
-					var publickey = $('#addPublickey').val();
-					var privatekey = $('#addPrivatekey').val();
-					sendConfig(publickey, privatekey);
-				})
-			}else{
 				$.ajax({
 				    url: "http://localhost:8080/"+action+'/'+monitoramento,
 				    dataType: "application/json",
@@ -49,12 +42,18 @@ $(document).ready(function(){
 				    complete: function(results){
 				    	var response = JSON.parse(results.responseText)
 				        tabela = new Table(response);
-				        document.querySelector('.conteudo').appendChild(tabela.table);
+				        document.querySelector('.conteudo .result').appendChild(tabela.table);
 				    }
 				});
-			}	
+				
 		})
 	}
+
+	$('#config').submit(function(data){
+					var publickey = $('#addPublickey').val();
+					var privatekey = $('#addPrivatekey').val();
+					sendConfig(publickey, privatekey);
+	})
 
 	function openConfig(){
 		$('.config').removeClass('hiden');
@@ -70,7 +69,10 @@ $(document).ready(function(){
 			dataType: "application/json",
 			contentType: "text/plain",
 			complete: function(results){
-				closeConfig()
+				if(results){
+					$('.statusConfig').removeClass('hiden')
+					$('.statusConfig').html('Changed!')
+				}
 			}
 		})
 	}
